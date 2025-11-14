@@ -1,0 +1,181 @@
+1st Backend Assignment On Intro To Backend And Javascript Variables and Datatypes 
+
+Name: Emmanuel Ozoemena             Cohort: Backend Development
+
+
+Backend & JavaScript Assignment
+Intro to Backend • Variables • Datatypes • Coding
+
+Section A — Intro to Backend (Theory: 12 Questions)
+
+What is backend development and how is it different from frontend development?
+Answers:
+
+Backend development is the part of web development that focuses on how a website or app works behind the scenes. It involves building and managing the server, databases and other logic so data can be stored, processed and delivered correctly to the frontend.
+
+Backend development is simply the part of a website that you  don’t see, while frontend development is the part a user sees and interacts with.
+
+
+Mention three backend programming languages.
+Answer: 
+Node  js
+Python
+Java
+
+
+What is a server? Explain its role in backend development.
+Answer:
+A  server is a computer or system that stores data, runs backend code and responds to requests from users.
+Roles
+It receives requests from the frontend
+It processes those requests using backend code
+It connects to the database to fetch or save information.
+It sends a response back to the frontend.
+
+
+Define an API and explain its purpose.
+Answer:
+API stands for Application Programming Interface. It is a way for two systems or applications to communicate with each other.
+For instance, if you go to a restaurant. The dining area where people sit, look at the menu and eat is the frontend. The backend is the kitchen of the restaurant, where the real work happens behind the scenes. Then API is the waiter in a restaurant. They take orders (request) from a customer (Frontend), go to the kitchen (backend) and bring back the food (response with some data).
+API is a bridge that connects the frontend and backend.
+I call APIs middleman 😂
+
+
+What is a database and why is it important in backend systems?
+Answers:
+A database is where information is stored, organized and managed so that applications can use it when needed.
+Why it’s important
+The backend uses the database to save information.
+It helps the backend retrieve data quickly.
+It keeps data organized and easy to manage.
+Without a database, applications would have nowhere to store data.
+
+
+List two differences between SQL and NoSQL databases.
+Answers:
+SQL stores data in tables with rows and columns (structured).
+NoSQL stores data in a flexible format  like documents, key-value pairs or graphs.
+SQL has a fixed schema
+NoSQL has a flexible schema
+
+
+What is a backend framework? Mention one example.
+Answer:
+It is a set of tools and libraries that helps developers build backend applications faster and easier. It provides structure for handling things like routes, databases, authentication and server logic.
+Example - Express js (for Node js)
+
+
+Explain what HTTP is and why it is important.
+Answer:
+HTTP stands for HyperText Transfer Protocol. It is the set of rules that allows browsers and servers to communicate over the internet.
+Why it’s important
+It defines how requests are sent from the frontend (browser/app) to the backend (server).
+It tells the server what action to take (like GET, POST, DELETE…)
+It ensures that data is transferred correctly between client and server.
+
+
+Mention two responsibilities of a backend developer.
+Answer: 
+They manage the server and database, making sure data is stored, retrieved and updated correctly.
+They build and maintain APIs so that the frontend can communicate with the backend and get the right data.
+
+
+What does CRUD stand for? Explain each word.
+Answer:
+CRUD stands for Create, Read, Update and Delete.
+Create: Adds new data 
+Read: Retrieve or view data
+Update: Modify existing data
+Delete: Removes data
+
+
+What is authentication and why is it important for backend applications?
+Answer: 
+Authentication is the process of verifying a user's identity before giving them access to a system or app.
+Why it’s important
+Ensures that only authorized users can access certain data or features.
+Protects sensitive information like personal details, passwords or financial data.
+Helps prevent hacking or unauthorized access.
+
+
+What is the difference between a GET request and a POST request?
+Answer: 
+GET Request
+Is used to retrieve data from the server.
+It’s used to send data in the URL (visible to everyone).
+POST Request
+Is used to send or create data from the server.
+It’s used to send data in the request body (not visible in URL)
+
+
+Section B — JavaScript Variables & Datatypes (Theory: 10 Questions)
+
+
+What is a variable in JavaScript?
+Answer: 
+A variable is like a container that holds data. It can store numbers, text or other values that you want to use in your codes.
+Example : 
+let name = “Emmanuel”
+let age = 21
+
+
+List the three ways to declare a variable in JavaScript.
+Answer:
+var
+let 
+const
+
+
+Explain the difference between let and const.
+Answer:
+let allows you to change (reassign) its value later.
+Example:
+let age = 20
+age = 21
+const does not allow you change its value after it’s set
+Example:
+const name = “Emmanuel”
+name = “Ozoemena”  // This is wrong
+
+
+Mention the seven primitive datatypes in JavaScript.
+Answer:
+String
+Number
+Boolean
+Undefined
+Null
+Symbols
+BigInt 🌚
+
+
+What datatype is assigned to the value: true?
+Answer: Boolean
+
+
+What datatype is a JavaScript array?
+Answer: Object
+
+
+Give one example of a string in JavaScript.
+Answer:  Double quote - “This is a double quote string”
+
+
+Give one example of a number in JavaScript.
+Answer: Whole number (Integer) - 21
+Note: JavaScript has only one numeric data type “number”, which is used for both integer and floating -point numbers.
+
+
+What will be the output of this expression?
+typeof “123”
+Answer: String
+Explain the difference between null and undefined.
+Answer:
+Undefined indicates that a variable has been declared but has not yet been assigned a value.
+Null represents the intentional absence of any object value.  It is a value that a dev explicitly assigns to a variable to signify that it currently holds no meaningful value.
+
+
+Section C — Coding Questions (8 Questions)
+
+Check out intro-to-backend-js-variable-datatype.js file
+
