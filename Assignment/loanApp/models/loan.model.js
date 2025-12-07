@@ -28,7 +28,7 @@ const RegistrationSchema = mongoose.Schema(
     },
 
     phoneNumber: {
-      type: Number,
+      type: String,
       required: true,
     },
   },
