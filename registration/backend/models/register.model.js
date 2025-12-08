@@ -28,13 +28,14 @@ const RegistrationSchema = mongoose.Schema(
     },
 
     phoneNumber: {
-      type: String,
+      type: Number,
       required: true,
     },
   },
 
   {
     timestamps: true,
+    versionKey: false,
   }
 );
 
