@@ -8,8 +8,8 @@ const {
   uniqueDetail,
 } = require("../controller/register.controller");
 
-router.post("/api/register", register);
-router.get("/api/reg-details", allDetails);
-router.get("/api/reg-details/:id", uniqueDetail);
+router.post("/", register);
+router.get("/reg-details", allDetails);
+router.get("/reg-details/:id", uniqueDetail);
 
 module.exports = router;
