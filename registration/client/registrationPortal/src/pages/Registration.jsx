@@ -1,6 +1,30 @@
+import { useState } from "react";
+import { registerUser } from "../../apis/registration";
 import "./Registration.css";
 
 const Registration = () => {
+  const [firstName, setFirstName] = useState("");
+  const [lastName, setLastName] = useState("");
+  const [email, setEmail] = useState("");
+  const [gender, setGender] = useState("");
+  const [dob, setDob] = useState("");
+  const [phoneNumber, setPhoneNumber] = useState("");
+
+  // Validate Email Address
+  const validateEmail = (e) => {
+    const emailValue = e.target.value;
+    setEmail(emailValue);
+
+    // Regular expression for email validation
+    const emailPattern = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+
+    if (!emailPattern.test(emailValue) && emailValue !== "") {
+      alert("Please enter a valid email address");
+    }
+  };
+
+ 
+
   return (
     <>
       <main>
@@ -23,14 +47,20 @@ const Registration = () => {
         <div className="container">
           <h2 className="container-title">Registration Form</h2>
 
-          <form action="">
+          <form>
             <div className="grid-two">
               {/* First Name */}
               <div className="input-group">
                 <label for="firstName">
                   First Name <span>*</span>
                 </label>
-                <input type="text" required />
+                <input
+                  type="text"
+                  placeholder="John"
+                  value={firstName}
+                  onChange={(e) => setFirstName(e.target.value)}
+                  required
+                />
                 <small className="error-msg-one"></small>
               </div>
 
@@ -39,7 +69,13 @@ const Registration = () => {
                 <label for="lastName">
                   Last Name <span>*</span>
                 </label>
-                <input type="text" required />
+                <input
+                  type="text"
+                  placeholder="Doe"
+                  value={lastName}
+                  onChange={(e) => setLastName(e.target.value)}
+                  required
+                />
                 <small className="error-msg-one"></small>
               </div>
             </div>
@@ -50,7 +86,14 @@ const Registration = () => {
                 <label for="email">
                   Email Address <span>*</span>
                 </label>
-                <input type="email" className="email-address" required />
+                <input
+                  type="email"
+                  placeholder="youremail@gmail.com"
+                  value={email}
+                  onBlur={validateEmail}
+                  onChange={(e) => setEmail(e.target.value)}
+                  required
+                />
                 <small className="error-msg-one"></small>
               </div>
             </div>
@@ -61,10 +104,13 @@ const Registration = () => {
                 <label for="gender">
                   Gender <span>*</span>
                 </label>
-                <select name="" id="">
+                <select
+                  value={gender}
+                  onChange={(e) => setGender(e.target.value)}
+                >
                   <option disabled>Select your gender</option>
-                  <option value="Male">Male</option>
-                  <option value="Female">Female</option>
+                  <option value="male">Male</option>
+                  <option value="female">Female</option>
                 </select>
                 <small className="error-msg-one"></small>
               </div>
@@ -74,7 +120,12 @@ const Registration = () => {
                 <label for="dateOfBirth">
                   Date of Birth <span>*</span>
                 </label>
-                <input type="date" required />
+                <input
+                  type="date"
+                  value={dob}
+                  onChange={(e) => setDob(e.target.value)}
+                  required
+                />
                 <small className="error-msg-one"></small>
               </div>
             </div>
@@ -85,7 +136,13 @@ const Registration = () => {
                 <label for="phoneNumber">
                   Phone Nmuber <span>*</span>
                 </label>
-                <input type="number" className="email-address" required />
+                <input
+                  type="number"
+                  placeholder="Doe"
+                  value={phoneNumber}
+                  onChange={(e) => setPhoneNumber(e.target.value)}
+                  required
+                />
                 <small className="error-msg-one"></small>
               </div>
             </div>
@@ -96,7 +153,7 @@ const Registration = () => {
                 <label for="message">
                   Message <span>*</span>
                 </label>
-                <textarea rows="6" className="message" required></textarea>
+                <textarea rows="6"></textarea>
                 <small className="error-msg-two"></small>
               </div>
             </div>
@@ -112,11 +169,7 @@ const Registration = () => {
               <small className="error-msg-three"></small>
             </div>
 
-            <button
-              className="submit-btn"
-              type="submit"
-              onclick="submitForm(event)"
-            >
+            <button className="submit-btn" type="submit">
               Submit
             </button>
           </form>
