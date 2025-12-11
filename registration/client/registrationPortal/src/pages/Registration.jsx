@@ -37,7 +37,7 @@ const Registration = () => {
         phoneNumber
       );
 
-      console.log("Full API Response:", response?.data);
+      // console.log("Full API Response:", response?.data);
 
       if (response?.status === 200) {
         alert("Registration Successful");
