@@ -1,5 +1,6 @@
 require("dotenv").config();
 const express = require("express");
+const cors = require("cors")
 const morgan = require("morgan");
 const mongoose = require("mongoose");
 // const RegDetails = require("./models/register.model");
@@ -10,6 +11,8 @@ const PORT = process.env.PORT || 3000;
 
 app.use(express.json());
 app.use(morgan("dev"));
+app.use(cors());
+
 
 app.use("/api/register", registerRoutes);
 
