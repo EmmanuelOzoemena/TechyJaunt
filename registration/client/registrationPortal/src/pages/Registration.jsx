@@ -23,7 +23,32 @@ const Registration = () => {
     }
   };
 
- 
+  // Submit users registration
+  const handleSubmitRequest = async (e) => {
+    e.preventDefault();
+
+    try {
+      const response = await registerUser(
+        firstName,
+        lastName,
+        email,
+        gender,
+        dob,
+        phoneNumber
+      );
+
+      console.log("Full API Response:", response?.data);
+
+      if (response?.status === 200) {
+        alert("Registration Successful");
+      } else {
+        alert("Registration Failed");
+      }
+    } catch (error) {
+      console.error("Error during request:", error);
+      alert("An error occurred. Please try again.");
+    }
+  };
 
   return (
     <>
@@ -47,7 +72,7 @@ const Registration = () => {
         <div className="container">
           <h2 className="container-title">Registration Form</h2>
 
-          <form>
+          <form onSubmit={handleSubmitRequest}>
             <div className="grid-two">
               {/* First Name */}
               <div className="input-group">
@@ -124,7 +149,7 @@ const Registration = () => {
                   type="date"
                   value={dob}
                   onChange={(e) => setDob(e.target.value)}
-                  required
+                //   required
                 />
                 <small className="error-msg-one"></small>
               </div>

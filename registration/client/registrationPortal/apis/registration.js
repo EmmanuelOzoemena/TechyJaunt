@@ -11,7 +11,7 @@ export const registerUser = async (
   try {
     console.log({ firstName, lastName, email, gender, dob, phoneNumber });
 
-    const res = await axios.post("url", {
+    const res = await axios.post("http://localhost:4001/api/register/", {
       firstName,
       lastName,
       email,
