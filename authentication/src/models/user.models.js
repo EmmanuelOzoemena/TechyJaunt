@@ -1,8 +1,8 @@
 const mongoose = require("mongoose");
 
-const userSchema = mongoose.Schema(
+const userSchema = new mongoose.Schema(
   {
-    username: {
+    name: {
       type: String,
       required: [true, "Please enter your username"],
     },
@@ -12,9 +12,28 @@ const userSchema = mongoose.Schema(
       required: [true, "Please enter your email"],
     },
 
+    role: {
+      type: String,
+      enum: ["user", "admin"],
+      default: "user",
+    },
+
     password: {
       type: String,
       required: [true, "Please enter your password"],
+    },
+
+    otp: {
+      type: String,
+    },
+
+    isVerified: {
+      type: Boolean,
+      default: false,
+    },
+
+    otpExpiry: {
+      type: Date,
     },
   },
 
@@ -24,6 +43,6 @@ const userSchema = mongoose.Schema(
   }
 );
 
-const userDetails = mongoose.model("userDetails", userSchema);
+const User = mongoose.model("userDetails", userSchema);
 
-module.exports = userDetails;
+module.exports = User;
