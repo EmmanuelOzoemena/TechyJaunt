@@ -189,6 +189,20 @@ form button {
   font-size: 12px;
 }
 
+.forgot {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 1.5rem;
+        font-size: 14px;
+}
+
+.forgot div {
+    display: flex;
+    gap: 6px;
+
+}
+
 /* Responsive styles */
 
 @media (max-width: 768px) {

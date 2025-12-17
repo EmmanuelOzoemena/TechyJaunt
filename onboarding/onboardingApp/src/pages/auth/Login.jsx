@@ -4,7 +4,6 @@ import { Link } from "react-router-dom";
 import { useState } from "react";
 import Sidebar from "../../components/Sidebar/Sidebar";
 
-
 const Login = () => {
   const [showPassword, setShowPassword] = useState(false);
 
@@ -68,9 +67,14 @@ const Login = () => {
             </span>
           </div>
 
-          <p className="agreement-text">
-            By continuing you agree with our term service and privacy policy
-          </p>
+          <div className="forgot">
+            <div>
+              <input type="checkbox" />
+              <span>Remember me</span>
+            </div>
+
+            <Link to="/forgot-password">Forgot Password</Link>
+          </div>
 
           <button type="submit">Login</button>
         </form>
