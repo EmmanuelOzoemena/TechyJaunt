@@ -32,7 +32,12 @@ const Login = () => {
 
   return (
     <div className="sign-up">
-      <Sidebar />
+      <Sidebar
+        title="Join Us Today!"
+        description="Create an account to get started"
+        buttonLink="Sign Up"
+        linkDestination="/"
+      />
 
       <div className="signup-content">
         <form onSubmit={handleSubmit}>

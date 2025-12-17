@@ -1,14 +1,14 @@
 import { Link } from "react-router-dom";
-import "./Sidebar.css"
+import "./Sidebar.css";
 
-const Sidebar = () => {
+const Sidebar = ({ title, description, buttonLink, linkDestination }) => {
   return (
     <div className="sidebar">
-      <h3>Welcome Back</h3>
-      <p>To keep connected with us please login with your personal info</p>
+      <h3>{title}</h3>
+      <p>{description}</p>
 
-      <Link to="/login" className="sign-in">
-        Sign in
+      <Link to={linkDestination} className="sign-in">
+        {buttonLink}
       </Link>
     </div>
   );

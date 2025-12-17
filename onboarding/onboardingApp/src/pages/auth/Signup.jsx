@@ -98,7 +98,12 @@ const Signup = () => {
 
   return (
     <div className="sign-up">
-      <Sidebar />
+      <Sidebar
+        title="Welcome Back"
+        description="To keep connected with us please login with your personal info"
+        buttonLink="Sign in"
+        linkDestination="/login"
+      />
 
       <div className="signup-content">
         <form onSubmit={handleSubmit}>
