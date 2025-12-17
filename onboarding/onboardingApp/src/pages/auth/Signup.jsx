@@ -3,36 +3,76 @@ import { FaGoogle, FaFacebookF, FaXTwitter } from "react-icons/fa6";
 import { useState } from "react";
 import "./Signup.css";
 import { Link } from "react-router-dom";
+import Sidebar from "../../components/Sidebar/Sidebar";
 
 const Signup = () => {
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
 
+  const [name, setName] = useState("");
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [confirmPassword, setConfirmPassword] = useState("");
+  const [error, setError] = useState("");
+
+  // Validate Email Address
+  const validateEmail = (e) => {
+    const emailValue = e.target.value;
+    setEmail(emailValue);
+
+    // Regular expression for email validation
+    const emailPattern = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+
+    if (!emailPattern.test(emailValue) && emailValue !== "") {
+      alert("Please enter a valid email address");
+    }
+  };
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+
+    if (password !== confirmPassword) {
+      setError("Passwords do not match");
+      return;
+    }
+
+    setError("");
+
+    console.log(name);
+    console.log(email);
+    console.log(password);
+    console.log(confirmPassword);
+  };
+
   return (
     <div className="sign-up">
-      <div className="left-content">
-        <h3>Welcome Back</h3>
-        <p>To keep connected with us please login with your personal info</p>
-
-        <Link to="/login" className="sign-in">
-          Sign in
-        </Link>
-      </div>
+      <Sidebar />
 
       <div className="signup-content">
-        <form>
+        <form onSubmit={handleSubmit}>
           <h2 className="title">Create an Account</h2>
 
           {/* Full name */}
           <div className="input-group">
             <FaUser className="icon" />
-            <input type="text" placeholder="Full name" />
+            <input
+              type="text"
+              value={name}
+              onChange={(e) => setName(e.target.value)}
+              placeholder="Full name"
+            />
           </div>
 
           {/* Email */}
           <div className="input-group">
             <FaEnvelope className="icon" />
-            <input type="email" placeholder="Email" />
+            <input
+              type="email"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+              onBlur={validateEmail}
+              placeholder="Email"
+            />
           </div>
 
           {/* Password */}
@@ -40,6 +80,8 @@ const Signup = () => {
             <FaLock className="icon" />
             <input
               type={showPassword ? "text" : "password"}
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
               placeholder="Password"
             />
             <span
@@ -55,6 +97,8 @@ const Signup = () => {
             <FaLock className="icon" />
             <input
               type={showConfirmPassword ? "text" : "password"}
+              value={confirmPassword}
+              onChange={(e) => setConfirmPassword(e.target.value)}
               placeholder="Confirm Password"
             />
             <span
@@ -64,6 +108,7 @@ const Signup = () => {
               {showConfirmPassword ? <FaEyeSlash /> : <FaEye />}
             </span>
           </div>
+          {error && <p className="error">{error}</p>}
 
           <p className="agreement-text">
             By continuing you agree with our term service and privacy policy
