@@ -1,8 +1,9 @@
 import { FaUser, FaEnvelope, FaLock, FaEye, FaEyeSlash } from "react-icons/fa";
 import { FaGoogle, FaFacebookF, FaXTwitter } from "react-icons/fa6";
-import { useState } from "react";
-import { Link } from "react-router-dom";
+import { useState, useRef } from "react";
+import { Link, useNavigate } from "react-router-dom";
 import Sidebar from "../../components/Sidebar/Sidebar";
+import { useEffect } from "react";
 
 const Signup = () => {
   const [showPassword, setShowPassword] = useState(false);
@@ -13,6 +14,11 @@ const Signup = () => {
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
   const [error, setError] = useState("");
+  const [otp, setOtp] = useState(["", "", "", ""]);
+  const inputsRef = useRef([]);
+  const [showOtp, setShowOtp] = useState(false);
+
+  const navigate = useNavigate();
 
   // Validate Email Address
   const validateEmail = (e) => {
@@ -30,18 +36,65 @@ const Signup = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
 
+    if (!name || !email || !password || !confirmPassword) {
+      return;
+    }
+
     if (password !== confirmPassword) {
       setError("Passwords do not match");
       return;
     }
 
     setError("");
+    setShowOtp(true);
 
     console.log(name);
     console.log(email);
     console.log(password);
     console.log(confirmPassword);
   };
+
+  const handleBackspace = (e, index) => {
+    if (e.key === "Backspace" && !otp[index] && index > 0) {
+      inputsRef.current[index - 1].focus();
+    }
+  };
+
+  const handleChange = (value, index) => {
+    if (!/^[0-9]?$/.test(value)) return;
+
+    const newOtp = [...otp];
+    newOtp[index] = value;
+    setOtp(newOtp);
+
+    // Move to next input
+    if (value && index < otp.length - 1) {
+      inputsRef.current[index + 1].focus();
+    }
+
+    // Auto-submit when last digit is entered
+    if (value && index === otp.length - 1) {
+      const enteredOtp = newOtp.join("");
+      handleSubmitOtp(enteredOtp);
+    }
+  };
+
+  const handleSubmitOtp = (enteredOtp) => {
+    console.log("OTP submitted:", enteredOtp);
+
+    // TODO: call verify OTP API here
+
+    setShowOtp(false);
+    setTimeout(() => {
+      navigate("/login");
+    }, 1000);
+  };
+
+  useEffect(() => {
+    if (showOtp) {
+      inputsRef.current[0]?.focus();
+    }
+  }, [showOtp]);
 
   return (
     <div className="sign-up">
@@ -59,6 +112,7 @@ const Signup = () => {
               value={name}
               onChange={(e) => setName(e.target.value)}
               placeholder="Full name"
+              required
             />
           </div>
 
@@ -71,6 +125,7 @@ const Signup = () => {
               onChange={(e) => setEmail(e.target.value)}
               onBlur={validateEmail}
               placeholder="Email"
+              required
             />
           </div>
 
@@ -82,6 +137,7 @@ const Signup = () => {
               value={password}
               onChange={(e) => setPassword(e.target.value)}
               placeholder="Password"
+              required
             />
             <span
               className="icon right"
@@ -99,6 +155,7 @@ const Signup = () => {
               value={confirmPassword}
               onChange={(e) => setConfirmPassword(e.target.value)}
               placeholder="Confirm Password"
+              required
             />
             <span
               className="icon right"
@@ -115,6 +172,39 @@ const Signup = () => {
 
           <button type="submit">Sign Up</button>
         </form>
+
+        {showOtp && (
+          <div className="otp-overlay">
+            <div className="otp-modal">
+              <h3>Verify Your Email</h3>
+
+              <p>
+                We've sent an email to <br /> <strong>{email}</strong>
+              </p>
+
+              <p>
+                Enter the verification code sent to your email address. If you
+                can't find it, check your spam folder.
+              </p>
+
+              <div className="otp-inputs">
+                {otp.map((digit, index) => (
+                  <input
+                    key={index}
+                    ref={(el) => (inputsRef.current[index] = el)}
+                    type="text"
+                    maxLength="1"
+                    value={digit}
+                    onChange={(e) => handleChange(e.target.value, index)}
+                    onKeyDown={(e) => handleBackspace(e, index)}
+                  />
+                ))}
+              </div>
+
+              <Link className="not-recieved">Didn't receive an email?</Link>
+            </div>
+          </div>
+        )}
 
         <div className="signup-with">
           <span className="line"></span>
