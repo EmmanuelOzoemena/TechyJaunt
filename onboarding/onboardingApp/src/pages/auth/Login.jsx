@@ -3,7 +3,6 @@ import { FaGoogle, FaFacebookF, FaXTwitter } from "react-icons/fa6";
 import { Link } from "react-router-dom";
 import { useState } from "react";
 import Sidebar from "../../components/Sidebar/Sidebar";
-import "./Signup.css";
 
 
 const Login = () => {

@@ -1,7 +1,6 @@
 import { FaUser, FaEnvelope, FaLock, FaEye, FaEyeSlash } from "react-icons/fa";
 import { FaGoogle, FaFacebookF, FaXTwitter } from "react-icons/fa6";
 import { useState } from "react";
-import "./Signup.css";
 import { Link } from "react-router-dom";
 import Sidebar from "../../components/Sidebar/Sidebar";
 
