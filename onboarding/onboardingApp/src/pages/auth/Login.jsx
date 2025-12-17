@@ -1,6 +1,6 @@
 import { FaEnvelope, FaLock, FaEye, FaEyeSlash } from "react-icons/fa";
 import { FaGoogle, FaFacebookF, FaXTwitter } from "react-icons/fa6";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useState } from "react";
 import Sidebar from "../../components/Sidebar/Sidebar";
 
@@ -9,6 +9,8 @@ const Login = () => {
 
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+
+  const navigate = useNavigate();
 
   // Validate Email Address
   const validateEmail = (e) => {
@@ -42,7 +44,6 @@ const Login = () => {
       <div className="signup-content">
         <form onSubmit={handleSubmit}>
           <h2 className="title">Welcome Back</h2>
-
           {/* Email */}
           <div className="input-group">
             <FaEnvelope className="icon" />
@@ -54,7 +55,6 @@ const Login = () => {
               placeholder="Email"
             />
           </div>
-
           {/* Password */}
           <div className="input-group">
             <FaLock className="icon" />
@@ -71,7 +71,6 @@ const Login = () => {
               {showPassword ? <FaEyeSlash /> : <FaEye />}
             </span>
           </div>
-
           <div className="forgot">
             <div>
               <input type="checkbox" />
@@ -81,7 +80,9 @@ const Login = () => {
             <Link to="/forgot-password">Forgot Password</Link>
           </div>
 
-          <button type="submit">Login</button>
+          <button type="submit" onClick={() => navigate("/dashboard")}>
+            Login
+          </button>
         </form>
 
         <div className="signup-with">
