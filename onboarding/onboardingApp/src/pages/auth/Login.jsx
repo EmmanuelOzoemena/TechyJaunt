@@ -1,16 +1,15 @@
 import { FaEnvelope, FaLock, FaEye, FaEyeSlash } from "react-icons/fa";
 import { FaGoogle, FaFacebookF, FaXTwitter } from "react-icons/fa6";
-import { Link, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { useState } from "react";
 import Sidebar from "../../components/Sidebar/Sidebar";
+import { login } from "../../apis/auth.api";
 
 const Login = () => {
   const [showPassword, setShowPassword] = useState(false);
 
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-
-  const navigate = useNavigate();
 
   // Validate Email Address
   const validateEmail = (e) => {
@@ -25,11 +24,21 @@ const Login = () => {
     }
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
 
-    console.log(email);
-    console.log(password);
+    try {
+      const response = await login(email, password);
+
+      if (response?.status === 200) {
+        alert("Login Successful");
+      } else {
+        alert("Invalid Credentials");
+      }
+    } catch (error) {
+      console.error("Error during login:", error);
+      alert("An error occurred. Please try again.");
+    }
   };
 
   return (
@@ -53,6 +62,7 @@ const Login = () => {
               onChange={(e) => setEmail(e.target.value)}
               onBlur={validateEmail}
               placeholder="Email"
+              required
             />
           </div>
           {/* Password */}
@@ -63,6 +73,7 @@ const Login = () => {
               value={password}
               onChange={(e) => setPassword(e.target.value)}
               placeholder="Password"
+              required
             />
             <span
               className="icon right"
@@ -80,9 +91,7 @@ const Login = () => {
             <Link to="/forgot-password">Forgot Password</Link>
           </div>
 
-          <button type="submit" onClick={() => navigate("/dashboard")}>
-            Login
-          </button>
+          <button type="submit">Login</button>
         </form>
 
         <div className="signup-with">
