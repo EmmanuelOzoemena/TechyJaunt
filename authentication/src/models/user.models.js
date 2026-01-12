@@ -4,37 +4,38 @@ const userSchema = new mongoose.Schema(
   {
     name: {
       type: String,
-      required: [true, "Please enter your username"],
+      required: true,
     },
 
     email: {
       type: String,
-      required: [true, "Please enter your email"],
+      required: true,
+      unique: true,
     },
 
-    role: {
-      type: String,
-      enum: ["user", "admin"],
-      default: "user",
-    },
+    // role: {
+    //   type: String,
+    //   enum: ["user", "admin"],
+    //   default: "user",
+    // },
 
     password: {
       type: String,
-      required: [true, "Please enter your password"],
+      required: true,
     },
 
-    otp: {
-      type: String,
-    },
+    // otp: {
+    //   type: String,
+    // },
 
-    isVerified: {
-      type: Boolean,
-      default: false,
-    },
+    // isVerified: {
+    //   type: Boolean,
+    //   default: false,
+    // },
 
-    otpExpiry: {
-      type: Date,
-    },
+    // otpExpiry: {
+    //   type: Date,
+    // },
   },
 
   {
@@ -43,6 +44,6 @@ const userSchema = new mongoose.Schema(
   }
 );
 
-const User = mongoose.model("userDetails", userSchema);
+const User = mongoose.model("User", userSchema);
 
 module.exports = User;
