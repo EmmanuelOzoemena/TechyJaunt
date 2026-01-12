@@ -63,7 +63,64 @@ const login = async (req, res) => {
   }
 };
 
+const forgetPassword = async (req, res) => {
+  const { email } = req.body;
+
+  try {
+    // Checking if the email is filled
+    if (!email) {
+      return res.status(400).json({ message: "Email is required" });
+    }
+
+    // Checking if the user exist
+    const user = await User.findOne({ email });
+    if (!user) {
+      return res.status(404).json({ message: "User not found" });
+    }
+
+    // Generating OTP
+    const otp = Math.floor(1000000 + Math.random() * 1000000).toString();
+    user.otp = otp;
+    await user.save();
+
+    return res.status(200).json({ message: "OTP sent successfully", otp });
+  } catch (error) {
+    console.error("Error during forget password:", error);
+    res.status(500).json({ message: "Internal server error" });
+  }
+};
+
+const resetPassword = async (req, res) => {
+  const { otp, newPassword } = req.body;
+
+  try {
+    // Checking if OTP and new password fields are filled.
+    if (!otp || !newPassword) {
+      return res.status(400).json({ message: "All fields are required" });
+    }
+
+    // Confirming / Checking if the user exist
+    const user = await User.findOne({ otp });
+    if (!user) {
+      return res.status(404).json({ message: "Invalid OTP" });
+    }
+
+    // Update user (new) password
+    const hashedPassword = await bcrypt.hash(newPassword, 10);
+    user.password = hashedPassword;
+    user.otp = null;
+    await user.save();
+
+    return res.status(200).json({ message: "Password reset successfully" });
+  } catch (error) {
+    console.error("Error during reset password:", error);
+    res.status(500).json({ message: "Internal server error" });
+  }
+};
+
 module.exports = {
   signup,
   login,
+  forgetPassword,
+  resetPassword
 };
