@@ -4,6 +4,7 @@ import { useState, useRef } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import Sidebar from "../../components/Sidebar/Sidebar";
 import { useEffect } from "react";
+import { signup } from "../../apis/auth.api";
 
 const Signup = () => {
   const [showPassword, setShowPassword] = useState(false);
@@ -33,7 +34,7 @@ const Signup = () => {
     }
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
 
     if (!name || !email || !password || !confirmPassword) {
@@ -48,10 +49,18 @@ const Signup = () => {
     setError("");
     setShowOtp(true);
 
-    console.log(name);
-    console.log(email);
-    console.log(password);
-    console.log(confirmPassword);
+    try {
+      const response = await signup(name, email, password);
+
+      if (response?.status === 201) {
+        alert("Registration Successful");
+      } else {
+        alert("Registration Failed");
+      }
+    } catch (error) {
+      console.error("Error during request:", error);
+      alert("An error occurred. Please try again.");
+    }
   };
 
   const handleBackspace = (e, index) => {
