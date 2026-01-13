@@ -3,6 +3,7 @@ import { useState, useRef } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import Sidebar from "../../components/Sidebar/Sidebar";
 import { useEffect } from "react";
+import { forgotPassword } from "../../apis/auth.api";
 
 const ForgotPassword = () => {
   const [email, setEmail] = useState("");
@@ -25,16 +26,28 @@ const ForgotPassword = () => {
     }
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
 
     if (!email) {
       return;
     }
 
-    setShowOtp(true);
+    try {
+      const response = await forgotPassword(email);
 
-    console.log(email);
+      if (response?.status === 200) {
+        const receivedOtp = response.data.otp;
+        console.log("Your OTP is:", receivedOtp);
+
+        setShowOtp(true);
+      } else {
+        console.log("User not found");
+      }
+    } catch (error) {
+      console.error("Error during forget password:", error);
+      alert("An error occurred. Please try again.");
+    }
   };
 
   const handleBackspace = (e, index) => {

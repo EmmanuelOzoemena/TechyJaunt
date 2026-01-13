@@ -18,13 +18,31 @@ export const signup = async (name, email, password) => {
 };
 
 export const login = async (email, password) => {
-  console.log({ email, password });
+  //   console.log({ email, password });
 
   try {
     const res = await axios.post("http://localhost:4002/api/users/login", {
       email,
       password,
     });
+
+    return res;
+  } catch (error) {
+    console.log("ERROR", error);
+    return error?.response;
+  }
+};
+
+export const forgotPassword = async (email) => {
+  console.log({ email });
+
+  try {
+    const res = await axios.put(
+      "http://localhost:4002/api/users/forget-password",
+      {
+        email,
+      }
+    );
 
     return res;
   } catch (error) {
