@@ -79,7 +79,7 @@ const forgetPassword = async (req, res) => {
     }
 
     // Generating OTP
-    const otp = Math.floor(1000000 + Math.random() * 1000000).toString();
+    const otp = Math.floor(1000 + Math.random() * 9000).toString();
     user.otp = otp;
     await user.save();
 
