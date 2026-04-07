@@ -47,13 +47,13 @@ const Signup = () => {
     }
 
     setError("");
-    setShowOtp(true);
 
     try {
       const response = await signup(name, email, password);
 
       if (response?.status === 201) {
         alert("Registration Successful");
+        // setShowOtp(true);
       } else {
         alert("Registration Failed");
       }
