@@ -22,14 +22,14 @@ const userSchema = new mongoose.Schema(
       type: String,
     },
 
-    // isVerified: {
-    //   type: Boolean,
-    //   default: false,
-    // },
+    isVerified: {
+      type: Boolean,
+      default: false,
+    },
 
-    // otpExpiry: {
-    //   type: Date,
-    // },
+    otpExpiry: {
+      type: Date,
+    },
 
     // role: {
     //   type: String,
@@ -41,7 +41,7 @@ const userSchema = new mongoose.Schema(
   {
     timestamps: true,
     versionKey: false,
-  }
+  },
 );
 
 const User = mongoose.model("User", userSchema);
