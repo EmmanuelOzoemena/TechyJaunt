@@ -17,6 +17,6 @@ router.put("/forget-password", forgetPassword);
 router.put("/reset-password", resetPassword);
 router.put("/verify-otp", verifyOtp);
 router.put("/resend-otp", resendOtp);
-router.get("get-all-users", isAuth, getAllUsers);
+router.get("/get-all-users", isAuth, getAllUsers);
 
 module.exports = router;
