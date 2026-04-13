@@ -68,9 +68,9 @@ const login = async (req, res) => {
       return res.status(401).json({ message: "Invalid Credentials" });
     }
 
-    // const token = await jwt.sign({ userId: user._id }, process.env.JWT_SECRET, {
-    //   expiresIn: "1h",
-    // });
+    const token = await jwt.sign({ userId: user._id }, process.env.JWT_SECRET, {
+      expiresIn: "1h",
+    });
 
     return res.status(200).json({ message: "Login successful" });
   } catch (error) {
@@ -187,6 +187,24 @@ const resendOtp = async (req, res) => {
   }
 };
 
+const getAllUsers = async (req, res) => {
+  const { userId } = req.user;
+
+  try {
+    const adminUser = await User.findById(userId);
+
+    if (adminUser.role !== "admin") {
+      return res.status(403).json({ message: "Access denied" });
+    }
+
+    const users = await User.find().select("-password -otp -otpExpiry");
+    return res.status(200).json(users);
+  } catch (error) {
+    console.error("Error fetching users:", error);
+    return res.status(500).json({ message: "Interval server error" });
+  }
+};
+
 module.exports = {
   signup,
   login,
@@ -194,4 +212,5 @@ module.exports = {
   resetPassword,
   verifyOtp,
   resendOtp,
+  getAllUsers,
 };
