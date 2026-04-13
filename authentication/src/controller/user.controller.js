@@ -1,6 +1,7 @@
 const User = require("../models/user.models");
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
+const sendEmail = require("../config/email");
 
 const signup = async (req, res) => {
   const { name, email, password } = req.body;
@@ -32,6 +33,13 @@ const signup = async (req, res) => {
     });
 
     await newUser.save();
+
+    // Sending emails to the user containing the OTP
+    await sendEmail(
+      email,
+      "Verify your account",
+      `Your OTP for account verification is: ${otp}`,
+    );
 
     return res.status(201).json({ message: "User created successfully" });
   } catch (error) {
@@ -72,7 +80,7 @@ const login = async (req, res) => {
       expiresIn: "1h",
     });
 
-    return res.status(200).json({ message: "Login successful" });
+    return res.status(200).json({ message: "Login successful", token });
   } catch (error) {
     console.error("Error during login:", error);
     res.status(500).json({ message: "Internal server error" });
@@ -98,6 +106,13 @@ const forgetPassword = async (req, res) => {
     const otp = Math.floor(100000 + Math.random() * 900000).toString();
     user.otp = otp;
     await user.save();
+
+    // Sending emails to the user containing the OTP
+    await sendEmail(
+      email,
+      "Password Reset OTP",
+      `Your OTP for password reset is: ${otp}`,
+    );
 
     return res.status(200).json({ message: "OTP sent successfully", otp });
   } catch (error) {
