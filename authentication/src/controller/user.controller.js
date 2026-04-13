@@ -1,6 +1,6 @@
 const User = require("../models/user.models");
 const bcrypt = require("bcryptjs");
-// const jwt = require("jsonwebtoken");
+const jwt = require("jsonwebtoken");
 
 const signup = async (req, res) => {
   const { name, email, password } = req.body;
@@ -20,7 +20,7 @@ const signup = async (req, res) => {
     // Hashing users password
     const hashedPassword = await bcrypt.hash(password, 10);
 
-    const otp = Math.floor(1000 + Math.random() * 9000).toString();
+    const otp = Math.floor(100000 + Math.random() * 900000).toString();
     const otpExpiry = new Date(Date.now() + 10 * 60 * 1000); // OTP valid for 10 minutes
 
     const newUser = new User({
@@ -68,6 +68,10 @@ const login = async (req, res) => {
       return res.status(401).json({ message: "Invalid Credentials" });
     }
 
+    // const token = await jwt.sign({ userId: user._id }, process.env.JWT_SECRET, {
+    //   expiresIn: "1h",
+    // });
+
     return res.status(200).json({ message: "Login successful" });
   } catch (error) {
     console.error("Error during login:", error);
@@ -91,7 +95,7 @@ const forgetPassword = async (req, res) => {
     }
 
     // Generating OTP
-    const otp = Math.floor(1000 + Math.random() * 9000).toString();
+    const otp = Math.floor(100000 + Math.random() * 900000).toString();
     user.otp = otp;
     await user.save();
 
@@ -170,10 +174,10 @@ const resendOtp = async (req, res) => {
 
     const user = await User.findOne({ email });
 
-    const otp = Math.floor(1000 + Math.random() * 9000).toString();
+    const otp = Math.floor(100000 + Math.random() * 900000).toString();
     const otpExpiry = new Date(Date.now() + 10 * 60 * 1000); // OTP valid for 10 minutes
     user.otp = otp;
-    user.otp = otpExpiry;
+    user.otpExpiry = otpExpiry;
 
     await user.save();
     return res.status(200).json({ message: "OTP resent successfully", otp });
